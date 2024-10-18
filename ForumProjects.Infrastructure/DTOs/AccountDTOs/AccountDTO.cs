@@ -1,7 +1,7 @@
 ﻿using ForumProjects.Infrastructure.Enums;
 using System;
 
-namespace ForumProjects.Infrastructure.DTOs
+namespace ForumProjects.Infrastructure.DTOs.AccountDTOs
 {
     public class AccountDTO
     {

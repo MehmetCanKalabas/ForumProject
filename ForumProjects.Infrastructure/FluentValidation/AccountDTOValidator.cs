@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using ForumProjects.Infrastructure.DTOs;
+using ForumProjects.Infrastructure.DTOs.AccountDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

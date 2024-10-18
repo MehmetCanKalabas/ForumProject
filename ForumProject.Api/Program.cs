@@ -1,6 +1,6 @@
 using FluentValidation;
 using ForumProjects.Infrastructure.Data;
-using ForumProjects.Infrastructure.DTOs;
+using ForumProjects.Infrastructure.DTOs.AccountDTOs;
 using ForumProjects.Infrastructure.FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

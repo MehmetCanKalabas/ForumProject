@@ -6,7 +6,7 @@ namespace ForumProjects.Infrastructure.Entities
 {
     public class Account
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string UserId { get; set; } // ApplicationUser'ın Id'si
 

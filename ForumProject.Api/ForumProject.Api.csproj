@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ForumProjects.Application\ForumProjects.Application.csproj" />
     <ProjectReference Include="..\ForumProjects.Infrastructure\ForumProjects.Infrastructure.csproj" />
   </ItemGroup>
 

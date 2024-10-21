@@ -16,18 +16,18 @@ using System.Threading.Tasks;
 
 namespace ForumProjects.Application.Services
 {
-    public class UserService<T> where T : class
+    public class UserService
     {
         private readonly AppDbContext _context;
-        private readonly GenericRepository<T> _genericRepository;
+        //private readonly GenericRepository<T> _genericRepository;
         private readonly IValidator<AccountCreateDTO> _validationRules;
         private readonly UserManager<IdentityUser> _userManager;
 
 
-        public UserService(AppDbContext context, GenericRepository<T> genericRepository, IValidator<AccountCreateDTO> validationRules, UserManager<IdentityUser> userManager)
+        public UserService(AppDbContext context, /*GenericRepository<T> genericRepository, */IValidator<AccountCreateDTO> validationRules, UserManager<IdentityUser> userManager)
         {
             _context = context;
-            _genericRepository = genericRepository;
+            //_genericRepository = genericRepository;
             _validationRules = validationRules;
             _userManager = userManager;
         }
@@ -53,7 +53,26 @@ namespace ForumProjects.Application.Services
             return result;
         }
 
-        public async Task<StandardResult<AccountCreateDTO>> Create(AccountCreateDTO model)
+        public Account GetById(string Id)
+        {
+            try
+            {
+                var userInfo = _context.Accounts.Where(x => x.Id == Id).FirstOrDefault();
+
+                if (userInfo == null)
+                {
+                    throw new Exception("Kullanıcı bulunamadı.");
+                }
+
+                return userInfo;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Bir hata oluştu: {ex.Message}", ex);
+            }
+        }
+
+        public async Task<StandardResult<AccountCreateDTO>> UserCreate(AccountCreateDTO model)
         {
             try
             {
@@ -84,7 +103,7 @@ namespace ForumProjects.Application.Services
 
                 var accountEntity = new Account
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     UserId = userEntity.Id,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -108,7 +127,7 @@ namespace ForumProjects.Application.Services
                 return new StandardResult<AccountCreateDTO>(false, $"Bir hata oluştu: {ex.Message}");
             }
         }
-        public async Task<StandardResult<AccountCreateDTO>> Update(AccountCreateDTO model)
+        public async Task<StandardResult<AccountCreateDTO>> UserUpdate(AccountCreateDTO model)
         {
             try
             {
@@ -168,8 +187,7 @@ namespace ForumProjects.Application.Services
                 return new StandardResult<AccountCreateDTO>(false, $"Bir hata oluştu: {ex.Message}");
             }
         }
-
-        public StandardResult<AccountCreateDTO> Delete(string Id)
+        public StandardResult<AccountCreateDTO> UserDelete(string Id)
         {
             try
             {

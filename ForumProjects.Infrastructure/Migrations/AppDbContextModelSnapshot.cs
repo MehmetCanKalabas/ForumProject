@@ -24,9 +24,8 @@ namespace ForumProjects.Infrastructure.Migrations
 
             modelBuilder.Entity("ForumProjects.Infrastructure.Entities.Account", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -129,7 +128,7 @@ namespace ForumProjects.Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserLevels")
+                    b.Property<int?>("UserLevels")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")

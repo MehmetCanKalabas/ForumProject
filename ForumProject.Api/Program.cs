@@ -1,5 +1,7 @@
 using FluentValidation;
+using ForumProjects.Application.Services;
 using ForumProjects.Infrastructure.Data;
+using ForumProjects.Infrastructure.DTOs;
 using ForumProjects.Infrastructure.DTOs.AccountDTOs;
 using ForumProjects.Infrastructure.FluentValidation;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +23,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddTransient<IValidator<AccountCreateDTO>, AccountDTOValidator>();
+builder.Services.AddScoped<IValidator<AccountCreateDTO>, AccountDTOValidator>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 

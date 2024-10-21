@@ -5,7 +5,7 @@ namespace ForumProjects.Infrastructure.DTOs.AccountDTOs
 {
     public class AccountDTO
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 

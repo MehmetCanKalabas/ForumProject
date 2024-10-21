@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumProjects.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241014104208_create_forumprojectdatabase")]
-    partial class create_forumprojectdatabase
+    [Migration("20241021085609_CreateDB")]
+    partial class CreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,8 @@ namespace ForumProjects.Infrastructure.Migrations
 
             modelBuilder.Entity("ForumProjects.Infrastructure.Entities.Account", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -132,7 +131,7 @@ namespace ForumProjects.Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserLevels")
+                    b.Property<int?>("UserLevels")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")

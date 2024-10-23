@@ -21,10 +21,10 @@ namespace ForumProjects.Application.Services
         private readonly AppDbContext _context;
         //private readonly GenericRepository<T> _genericRepository;
         private readonly IValidator<AccountCreateDTO> _validationRules;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
 
-        public UserService(AppDbContext context, /*GenericRepository<T> genericRepository, */IValidator<AccountCreateDTO> validationRules, UserManager<IdentityUser> userManager)
+        public UserService(AppDbContext context, /*GenericRepository<T> genericRepository, */IValidator<AccountCreateDTO> validationRules, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             //_genericRepository = genericRepository;
@@ -52,7 +52,6 @@ namespace ForumProjects.Application.Services
 
             return result;
         }
-
         public Account GetById(string Id)
         {
             try
@@ -71,7 +70,6 @@ namespace ForumProjects.Application.Services
                 throw new Exception($"Bir hata oluştu: {ex.Message}", ex);
             }
         }
-
         public async Task<StandardResult<AccountCreateDTO>> UserCreate(AccountCreateDTO model)
         {
             try
@@ -86,9 +84,12 @@ namespace ForumProjects.Application.Services
                     return new StandardResult<AccountCreateDTO>(false, errorMessages);
                 }
 
-                var userEntity = new IdentityUser
+                var userEntity = new ApplicationUser
                 {
                     Id = Guid.NewGuid().ToString(),
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserLevels = model.UserLevel,
                     UserName = model.UserName,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,

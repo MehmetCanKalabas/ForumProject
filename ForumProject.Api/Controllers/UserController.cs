@@ -20,17 +20,15 @@ namespace ForumProject.Api.Controllers
         public IActionResult UserGetAll()
         {
             var userList = _userService.GetAll();
-
             return Ok(userList);
         }
 
-        [HttpGet]
+        [HttpGet("{Id}")]
         public IActionResult UserGetById(string Id)
         {
             try
             {
                 var user = _userService.GetById(Id);
-
                 return Ok(user);
             }
             catch (Exception ex)
@@ -44,7 +42,7 @@ namespace ForumProject.Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> UserCreate(AccountCreateDTO model)
         {
             var result = await _userService.UserCreate(model);
@@ -57,7 +55,7 @@ namespace ForumProject.Api.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost]
+        [HttpPost("Update")]
         public async Task<IActionResult> UserUpdate(AccountCreateDTO model)
         {
             var result = await _userService.UserUpdate(model);
@@ -69,7 +67,6 @@ namespace ForumProject.Api.Controllers
 
             return BadRequest(result.Message);
         }
-
 
     }
 }

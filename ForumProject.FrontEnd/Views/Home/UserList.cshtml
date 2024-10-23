@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Ürün Listesi</h1>
+<ul id="product-list"></ul>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // API'ye GET isteği yap
+        fetch('http:/http://localhost:5166/api/User')
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                data.forEach(product => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = product;
+                    productList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>

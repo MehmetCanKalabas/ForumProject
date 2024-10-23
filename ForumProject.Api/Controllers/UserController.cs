@@ -22,7 +22,7 @@ namespace ForumProject.Api.Controllers
             var userList = _userService.GetAll();
             return Ok(userList);
         }
-
+         
         [HttpGet("{Id}")]
         public IActionResult UserGetById(string Id)
         {

@@ -2,21 +2,63 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Ürün Listesi</h1>
-<ul id="product-list"></ul>
+<h1>Kullanıcı Listesi</h1>
+<button id="fetch-users-btn">Kullanıcıları Getir</button>
+<ul id="user-list"></ul>
+
+<h2>Kullanıcı Ekle</h2>
+<input type="text" id="first-name" placeholder="Ad" />
+<input type="text" id="last-name" placeholder="Soyad" />
+<button id="add-user-btn">Kullanıcı Ekle</button>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    // Kullanıcıları getiren buton için olay dinleyicisi
+    document.getElementById('fetch-users-btn').addEventListener('click', function () {
         // API'ye GET isteği yap
-        fetch('http:/http://localhost:5166/api/User')
+        fetch('http://localhost:5166/api/User')
             .then(response => response.json())
             .then(data => {
-                const productList = document.getElementById('product-list');
-                data.forEach(product => {
+                const userList = document.getElementById('user-list');
+                userList.innerHTML = ''; // Listeyi temizle
+                data.forEach(user => {
+                    // Her bir kullanıcıyı listeye ekle
                     const listItem = document.createElement('li');
-                    listItem.textContent = product;
-                    productList.appendChild(listItem);
+                    listItem.textContent = `Ad: ${user.firstName}, Soyad: ${user.lastName}`;
+                    userList.appendChild(listItem);
                 });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    // Kullanıcı ekleyen buton için olay dinleyicisi
+    document.getElementById('add-user-btn').addEventListener('click', function () {
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+
+        // POST isteği için verileri oluştur
+        const userData = {
+            firstName: firstName,
+            lastName: lastName
+        };
+
+        // API'ye POST isteği yap
+        fetch('http://localhost:5166/api/User/Create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData) // Verileri JSON formatında gönder
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Kullanıcı başarıyla eklendi:', data);
+                // Kullanıcı eklendikten sonra listeyi güncelle
+                document.getElementById('fetch-users-btn').click();
             })
             .catch(error => console.error('Error:', error));
     });

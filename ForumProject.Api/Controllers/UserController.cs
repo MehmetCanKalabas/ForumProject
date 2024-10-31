@@ -22,7 +22,7 @@ namespace ForumProject.Api.Controllers
             var userList = _userService.GetAll();
             return Ok(userList);
         }
-         
+
         [HttpGet("{Id}")]
         public IActionResult UserGetById(string Id)
         {
@@ -45,12 +45,13 @@ namespace ForumProject.Api.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> UserCreate(AccountCreateDTO model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var result = await _userService.UserCreate(model);
 
             if (result.Success)
-            {
                 return CreatedAtAction(nameof(UserCreate), new { id = model.Email }, result);
-            }
 
             return BadRequest(result.Message);
         }
